@@ -37,8 +37,8 @@ Ce plugin est un **connecteur léger** : il n'analyse rien lui-même. Il expose 
 Ce plugin est un connecteur : il **nécessite un compte sur le service externe WP Security** (`https://wordpress.genisoft.fr`) pour fonctionner. À chaque scan que vous déclenchez depuis votre tableau de bord WP Security, le service interroge l'API REST du plugin pour lire les fichiers à analyser. Les **contenus de fichiers ne sont pas stockés** par le service — seuls les résultats d'analyse (métadonnées) sont conservés ; hébergement en région UE (RGPD).
 
 * Site du service : https://wordpress.genisoft.fr
-* Conditions d'utilisation : https://wordpress.genisoft.fr/legal/terms
-* Politique de confidentialité : https://wordpress.genisoft.fr/legal/privacy
+* Conditions d'utilisation : https://wordpress.genisoft.fr/legal/cgu
+* Politique de confidentialité : https://wordpress.genisoft.fr/legal/confidentialite
 
 == Installation ==
 
