@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: WP Security Connector
+ * Plugin Name: Genisoft Security Connector
  * Plugin URI:  https://wordpress.genisoft.fr
  * Description: Connecteur sécurisé pour l'audit WordPress. Expose une API REST
  *              authentifiée par HMAC-SHA256 utilisée par le moteur de scan SaaS.

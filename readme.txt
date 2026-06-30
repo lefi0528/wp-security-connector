@@ -1,4 +1,4 @@
-=== WP Security Connector ===
+=== Genisoft Security Connector ===
 Contributors: genisoftweb
 Tags: malware, security, scanner, security-audit, hacked
 Requires at least: 6.0
@@ -64,6 +64,11 @@ Par défaut, non : il est en lecture seule. Les actions de nettoyage (quarantain
 = Mes fichiers sont-ils envoyés à un tiers ? =
 
 Seuls les fichiers nécessaires à l'analyse sont lus à la demande lors d'un scan. Ils ne sont pas stockés : seuls les résultats (métadonnées) sont conservés, en région UE.
+
+== Screenshots ==
+
+1. Réglages du connecteur dans l'administration WordPress (URL du site + clé de connexion).
+2. Tableau de bord WP Security : rapport de scan (fichiers infectés, point d'entrée, score de risque).
 
 == Changelog ==
 
