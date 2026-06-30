@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit; // Acces direct interdit
+}
+
 /**
  * Vérification des signatures HMAC-SHA256 sur les requêtes entrantes.
  *

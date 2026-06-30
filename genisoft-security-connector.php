@@ -35,13 +35,21 @@ function wsc_check_requirements(): bool
 {
     if (version_compare(PHP_VERSION, WSC_MIN_PHP_VERSION, '<')) {
         add_action('admin_notices', function () {
-            echo '<div class="notice notice-error"><p>Genisoft Security Connector requiert PHP ' . esc_html(WSC_MIN_PHP_VERSION) . '+.</p></div>';
+            echo '<div class="notice notice-error"><p>' . sprintf(
+                /* translators: %s: version PHP minimale requise */
+                esc_html__('Genisoft Security Connector requiert PHP %s+.', 'genisoft-security-connector'),
+                esc_html(WSC_MIN_PHP_VERSION)
+            ) . '</p></div>';
         });
         return false;
     }
     if (version_compare($GLOBALS['wp_version'], WSC_MIN_WP_VERSION, '<')) {
         add_action('admin_notices', function () {
-            echo '<div class="notice notice-error"><p>Genisoft Security Connector requiert WordPress ' . esc_html(WSC_MIN_WP_VERSION) . '+.</p></div>';
+            echo '<div class="notice notice-error"><p>' . sprintf(
+                /* translators: %s: version WordPress minimale requise */
+                esc_html__('Genisoft Security Connector requiert WordPress %s+.', 'genisoft-security-connector'),
+                esc_html(WSC_MIN_WP_VERSION)
+            ) . '</p></div>';
         });
         return false;
     }

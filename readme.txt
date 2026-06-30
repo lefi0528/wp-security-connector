@@ -2,7 +2,7 @@
 Contributors: genisoftweb
 Tags: malware, security, scanner, security-audit, hacked
 Requires at least: 6.0
-Tested up to: 6.8
+Tested up to: 7.0
 Requires PHP: 8.0
 Stable tag: 0.8.0
 License: GPLv2 or later

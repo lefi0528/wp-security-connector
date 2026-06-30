@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit; // Acces direct interdit
+}
+
 /**
  * Gestionnaire de quarantaine — Phase 2.
  *
@@ -120,14 +124,14 @@ class WSC_Quarantine_Manager
         }
         $tmp_hash = hash_file('sha256', $tmp);
         if ($tmp_hash === false || !hash_equals($expected_new_hash, $tmp_hash)) {
-            @unlink($tmp);
+            wp_delete_file($tmp);
             return null; // Temp corrompu — abandon, original intact
         }
 
         // 3. Maintenant seulement : quarantaine de l'original (remplacement prêt).
         $quarantine_result = $this->quarantine($relative_path, $action_id, $expected_hash);
         if ($quarantine_result === null) {
-            @unlink($tmp);
+            wp_delete_file($tmp);
             return null; // Quarantaine impossible — abandon, original intact
         }
 
@@ -137,8 +141,10 @@ class WSC_Quarantine_Manager
             // jamais laisser un fichier core manquant (cause de WP cassé).
             $q_abs = $base . DIRECTORY_SEPARATOR
                    . str_replace('/', DIRECTORY_SEPARATOR, $quarantine_result['quarantinedPath']);
-            @rename($q_abs, $real);
-            @unlink($tmp);
+            if (file_exists($q_abs)) {
+                rename($q_abs, $real);
+            }
+            wp_delete_file($tmp);
             return null;
         }
 

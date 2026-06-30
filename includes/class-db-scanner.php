@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit; // Acces direct interdit
+}
+
 /**
  * Analyse LECTURE SEULE de la base de données WordPress pour détecter les infections
  * qui ne vivent pas dans des fichiers : code injecté dans wp_options, admins pirates,

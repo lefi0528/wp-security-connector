@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit; // Acces direct interdit
+}
+
 /**
  * Enregistrement des endpoints REST WordPress.
  * Namespace : /wp-json/wsc/v1/

@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit; // Acces direct interdit
+}
+
 /**
  * Gestionnaire de backup — Phase 2.
  *
@@ -176,6 +180,10 @@ class WSC_Backup_Manager
                 continue;
             }
 
+            // $table = $wpdb->prefix + un suffixe issu de la whitelist self::DB_TABLES (constante,
+            // jamais d'entrée utilisateur). Un identifiant de table ne peut pas être lié via
+            // prepare() (le placeholder le quoterait) → interpolation sûre, annotée pour PHPCS.
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- identifiant de table de confiance.
             $rows = $wpdb->get_results("SELECT * FROM `{$table}`", ARRAY_A);
             if ($rows === null) {
                 continue;

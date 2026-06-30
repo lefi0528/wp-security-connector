@@ -2,13 +2,17 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit; // Accès direct interdit
+}
+
 /**
  * Page d'administration Genisoft Security Connector.
  *
  * Permet à l'administrateur WordPress de saisir la clé API
  * générée par le tableau de bord SaaS.
  *
- * Accessible via : Réglages → Genisoft Security Connector
+ * Accessible via : Réglages → Genisoft Security
  */
 class WSC_Admin_Settings
 {
@@ -25,8 +29,8 @@ class WSC_Admin_Settings
     public function add_settings_page(): void
     {
         add_options_page(
-            'Genisoft Security Connector',
-            'Genisoft Security',
+            __('Genisoft Security Connector', 'genisoft-security-connector'),
+            __('Genisoft Security', 'genisoft-security-connector'),
             'manage_options',
             self::MENU_SLUG,
             [$this, 'render_page'],
@@ -43,14 +47,14 @@ class WSC_Admin_Settings
 
         add_settings_section(
             'wsc_main_section',
-            'Configuration de la connexion',
+            __('Configuration de la connexion', 'genisoft-security-connector'),
             fn() => null,
             self::MENU_SLUG,
         );
 
         add_settings_field(
             'wsc_hmac_secret_field',
-            'Clé API',
+            __('Clé API', 'genisoft-security-connector'),
             [$this, 'render_api_key_field'],
             self::MENU_SLUG,
             'wsc_main_section',
@@ -65,7 +69,7 @@ class WSC_Admin_Settings
             add_settings_error(
                 self::OPTION_KEY,
                 'wsc_invalid_key',
-                'La clé API doit faire 64 caractères hexadécimaux. Copiez-la depuis votre tableau de bord WP Security.',
+                __('La clé API doit faire 64 caractères hexadécimaux. Copiez-la depuis votre tableau de bord WP Security.', 'genisoft-security-connector'),
                 'error'
             );
             return (string) get_option(self::OPTION_KEY, '');
@@ -81,20 +85,20 @@ class WSC_Admin_Settings
         <input
             type="password"
             id="wsc_hmac_secret"
-            name="<?= esc_attr(self::OPTION_KEY) ?>"
-            value="<?= esc_attr($value) ?>"
+            name="<?php echo esc_attr(self::OPTION_KEY); ?>"
+            value="<?php echo esc_attr($value); ?>"
             class="regular-text"
             autocomplete="off"
-            placeholder="Collez ici la clé API depuis votre tableau de bord"
+            placeholder="<?php echo esc_attr__('Collez ici la clé API depuis votre tableau de bord', 'genisoft-security-connector'); ?>"
         />
         <p class="description">
-            <?php if ($is_configured): ?>
-                <span style="color: #00a32a">✓ Clé API configurée.</span>
-                Vous pouvez la remplacer en saisissant une nouvelle valeur.
-            <?php else: ?>
-                Trouvez votre clé API dans le
-                <a href="https://wordpress.genisoft.fr/sites/new" target="_blank" rel="noopener noreferrer">tableau de bord WP Security</a> →
-                <strong>Sites → Ajouter un site</strong>.
+            <?php if ($is_configured) : ?>
+                <span style="color: #00a32a"><?php echo esc_html__('✓ Clé API configurée.', 'genisoft-security-connector'); ?></span>
+                <?php echo esc_html__('Vous pouvez la remplacer en saisissant une nouvelle valeur.', 'genisoft-security-connector'); ?>
+            <?php else : ?>
+                <?php echo esc_html__('Trouvez votre clé API dans le', 'genisoft-security-connector'); ?>
+                <a href="https://wordpress.genisoft.fr/sites/new" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('tableau de bord WP Security', 'genisoft-security-connector'); ?></a> →
+                <strong><?php echo esc_html__('Sites → Ajouter un site', 'genisoft-security-connector'); ?></strong>.
             <?php endif; ?>
         </p>
         <?php
@@ -114,24 +118,24 @@ class WSC_Admin_Settings
                     <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#2563eb" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
                     </svg>
-                    Genisoft Security Connector
+                    <?php echo esc_html__('Genisoft Security Connector', 'genisoft-security-connector'); ?>
                 </span>
             </h1>
 
-            <p>Version du plugin : <strong><?= esc_html(WSC_VERSION) ?></strong></p>
+            <p><?php echo esc_html__('Version du plugin :', 'genisoft-security-connector'); ?> <strong><?php echo esc_html(WSC_VERSION); ?></strong></p>
 
-            <?php if ($is_configured): ?>
+            <?php if ($is_configured) : ?>
                 <div class="notice notice-success is-dismissible">
                     <p>
-                        <strong>Plugin connecté.</strong> Votre site est surveillé par WP Security SaaS.
-                        <a href="https://wordpress.genisoft.fr" target="_blank" rel="noopener noreferrer">Ouvrir le tableau de bord →</a>
+                        <strong><?php echo esc_html__('Plugin connecté.', 'genisoft-security-connector'); ?></strong> <?php echo esc_html__('Votre site est surveillé par WP Security SaaS.', 'genisoft-security-connector'); ?>
+                        <a href="https://wordpress.genisoft.fr" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Ouvrir le tableau de bord →', 'genisoft-security-connector'); ?></a>
                     </p>
                 </div>
-            <?php else: ?>
+            <?php else : ?>
                 <div class="notice notice-warning">
                     <p>
-                        <strong>Plugin non configuré.</strong>
-                        Saisissez votre clé API ci-dessous pour activer la surveillance de ce site.
+                        <strong><?php echo esc_html__('Plugin non configuré.', 'genisoft-security-connector'); ?></strong>
+                        <?php echo esc_html__('Saisissez votre clé API ci-dessous pour activer la surveillance de ce site.', 'genisoft-security-connector'); ?>
                     </p>
                 </div>
             <?php endif; ?>
@@ -140,20 +144,22 @@ class WSC_Admin_Settings
                 <?php
                 settings_fields(self::SETTINGS_GROUP);
                 do_settings_sections(self::MENU_SLUG);
-                submit_button('Enregistrer la clé API');
+                submit_button(__('Enregistrer la clé API', 'genisoft-security-connector'));
                 ?>
             </form>
 
             <hr>
-            <h2>Informations système</h2>
+            <h2><?php echo esc_html__('Informations système', 'genisoft-security-connector'); ?></h2>
             <table class="widefat striped" style="max-width:500px">
                 <tbody>
                     <?php
                     $infos = [
                         'WordPress'   => get_bloginfo('version'),
                         'PHP'         => PHP_VERSION,
-                        'URL du site' => get_site_url(),
-                        'Statut HMAC' => $is_configured ? '✓ Configuré' : '✗ Non configuré',
+                        __('URL du site', 'genisoft-security-connector') => get_site_url(),
+                        __('Statut HMAC', 'genisoft-security-connector') => $is_configured
+                            ? __('✓ Configuré', 'genisoft-security-connector')
+                            : __('✗ Non configuré', 'genisoft-security-connector'),
                     ];
                     foreach ($infos as $label => $value) {
                         echo '<tr><th>' . esc_html($label) . '</th><td>' . esc_html($value) . '</td></tr>';
