@@ -103,7 +103,7 @@ class WSC_Admin_Settings
     public function render_page(): void
     {
         if (!current_user_can('manage_options')) {
-            wp_die(esc_html__('Accès refusé.', 'wp-security-connector'));
+            wp_die(esc_html__('Accès refusé.', 'genisoft-security-connector'));
         }
 
         $is_configured = !empty(get_option(self::OPTION_KEY, ''));

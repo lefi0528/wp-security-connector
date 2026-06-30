@@ -6,11 +6,11 @@
  * Description: Connecteur sécurisé pour l'audit WordPress. Expose une API REST
  *              authentifiée par HMAC-SHA256 utilisée par le moteur de scan SaaS.
  * Version:     0.8.0
- * Author:      WP Security SaaS
- * Author URI:  https://wordpress.genisoft.fr
+ * Author:      Genisoft
+ * Author URI:  https://www.genisoft.fr
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: wp-security-connector
+ * Text Domain: genisoft-security-connector
  * Requires at least: 6.0
  * Requires PHP: 8.0
  *
