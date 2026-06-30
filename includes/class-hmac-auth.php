@@ -23,7 +23,7 @@ if (!defined('ABSPATH')) {
  *   - Le timestamp est absent ou décale de > 5 minutes (replay attack)
  *   - La signature ne correspond pas
  */
-class WSC_Hmac_Auth
+class GENISECO_Hmac_Auth
 {
     private const MAX_CLOCK_SKEW_SECONDS = 300; // 5 minutes
 
@@ -42,7 +42,7 @@ class WSC_Hmac_Auth
             return false;
         }
 
-        $secret = (string) get_option('wsc_hmac_secret', '');
+        $secret = (string) get_option('geniseco_hmac_secret', '');
         if (empty($secret)) {
             return false;
         }
@@ -60,25 +60,6 @@ class WSC_Hmac_Auth
 
         // Comparaison à temps constant — protection timing attack
         return hash_equals($expected, $signature);
-    }
-
-    /**
-     * Comme verify(), mais à USAGE UNIQUE (M-HMAC-1) : la signature est mémorisée
-     * pendant sa fenêtre de validité (5 min) et rejouée → refusée. À utiliser sur les
-     * endpoints d'état sans nonce (ex. /backup) pour empêcher l'empilement par rejeu.
-     */
-    public function verify_no_replay(WP_REST_Request $request): bool
-    {
-        if (!$this->verify($request)) {
-            return false;
-        }
-        $signature = (string) $request->get_header('X-WSC-Signature');
-        $key = 'wsc_sig_' . hash('sha256', $signature);
-        if (get_transient($key) !== false) {
-            return false; // signature déjà utilisée (rejeu)
-        }
-        set_transient($key, 1, self::MAX_CLOCK_SKEW_SECONDS);
-        return true;
     }
 
     /**

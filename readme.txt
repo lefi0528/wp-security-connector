@@ -8,76 +8,74 @@ Stable tag: 0.8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Connecteur sécurisé qui relie votre WordPress au scanner de malwares WP Security : audit, détection (webshells, backdoors), nettoyage à distance.
+Secure read-only connector linking your WordPress site to the WP Security malware-scanning service for remote security audits.
 
 == Description ==
 
-**Genisoft Security Connector** est le plugin officiel du service **[WP Security](https://wordpress.genisoft.fr)** (édité par Genisoft) — une solution d'**audit de sécurité, de détection de malwares et de nettoyage automatisé** pour WordPress.
+**Genisoft Security Connector** is the official plugin for **[WP Security](https://wordpress.genisoft.fr)** (by Genisoft) — a remote **security audit and malware detection** service for WordPress.
 
-Ce plugin est un **connecteur léger** : il n'analyse rien lui-même. Il expose une **API REST authentifiée par HMAC-SHA256** que le moteur de scan de WP Security interroge pour auditer votre site **à distance**, sans SSH ni FTP. L'analyse lourde (détection de **webshells, backdoors, injections, code obfusqué**, vérification d'intégrité du cœur WordPress via les checksums officiels de `api.wordpress.org`, règles YARA) tourne **côté serveur**, dans un environnement isolé — votre site reste léger et rapide.
+This plugin is a **lightweight connector**: it performs no analysis itself. It exposes a **read-only REST API authenticated with HMAC-SHA256** that the WP Security engine calls to audit your site **remotely**, without SSH or FTP. The heavy analysis (detection of **webshells, backdoors, injections, obfuscated code**, WordPress core integrity checks against the official `api.wordpress.org` checksums, and YARA rules) runs **on our servers**, in an isolated environment — your site stays light and fast.
 
-**Ce que le scanner détecte :**
+**What the scanner detects:**
 
-* Webshells et backdoors PHP
-* Injecteurs et redirections malveillantes
-* Code obfusqué / encodé
-* Fichiers du cœur WordPress modifiés
-* Plugins et thèmes vulnérables (CVE)
-* Code injecté en base de données (wp_options, etc.)
+* PHP webshells and backdoors
+* Injectors and malicious redirects
+* Obfuscated / encoded code
+* Modified WordPress core files
+* Vulnerable plugins and themes (CVE)
+* Code injected into the database (wp_options, etc.)
 
-**Sécurité par conception :**
+**Secure by design:**
 
-* Authentification HMAC-SHA256 sur chaque requête (signature + horodatage, anti-rejeu 5 min). Clé unique par site, générée à l'installation.
-* **Lecture seule par défaut** : les fichiers sont lus pour analyse, jamais exécutés (aucun `eval`, `exec` ou `include` sur du contenu externe).
-* Actions de nettoyage **réversibles** : quarantaine et remplacement par fichiers officiels re-téléchargés depuis wordpress.org, sous backup vérifié + nonce à usage unique.
-* Pas de SSH, pas de SFTP.
+* HMAC-SHA256 authentication on every request (signature + timestamp; requests older than 5 minutes are rejected). One unique key per site.
+* **Read-only:** files are read for analysis, never executed (no `eval`, `exec` or `include` on external content).
+* No SSH, no SFTP.
 
-= Service tiers requis =
+= Third-party service =
 
-Ce plugin est un connecteur : il **nécessite un compte sur le service externe WP Security** (`https://wordpress.genisoft.fr`) pour fonctionner. À chaque scan que vous déclenchez depuis votre tableau de bord WP Security, le service interroge l'API REST du plugin pour lire les fichiers à analyser. Les **contenus de fichiers ne sont pas stockés** par le service — seuls les résultats d'analyse (métadonnées) sont conservés ; hébergement en région UE (RGPD).
+This plugin is a connector: it **requires an account on the external WP Security service** (`https://wordpress.genisoft.fr`) to be useful. Each time you start a scan from your WP Security dashboard, the service calls the plugin's read-only REST API to read the files to analyze. File contents are **not stored** by the service — only analysis results (metadata) are kept; hosting is in the EU (GDPR).
 
-* Site du service : https://wordpress.genisoft.fr
-* Conditions d'utilisation : https://wordpress.genisoft.fr/legal/cgu
-* Politique de confidentialité : https://wordpress.genisoft.fr/legal/confidentialite
+* Service website: https://wordpress.genisoft.fr
+* Terms of service: https://wordpress.genisoft.fr/legal/cgu
+* Privacy policy: https://wordpress.genisoft.fr/legal/confidentialite
 
 == Installation ==
 
-1. Téléversez le dossier `wp-security-connector` dans `/wp-content/plugins/`, ou installez le plugin via le menu **Extensions → Ajouter**.
-2. Activez le plugin depuis le menu **Extensions** de WordPress. Une clé HMAC unique est générée automatiquement.
-3. Allez dans **Réglages → Genisoft Security** et copiez l'URL du site ainsi que la clé de connexion.
-4. Créez un compte sur [wordpress.genisoft.fr](https://wordpress.genisoft.fr/sites/new), connectez votre site et lancez votre premier scan.
+1. Upload the `genisoft-security-connector` folder to `/wp-content/plugins/`, or install the plugin via **Plugins → Add New**.
+2. Activate the plugin from the **Plugins** menu in WordPress.
+3. Go to **Settings → Genisoft Security** and copy your site URL and connection key.
+4. Create an account at [wordpress.genisoft.fr](https://wordpress.genisoft.fr/sites/new), connect your site and run your first scan.
 
 == Frequently Asked Questions ==
 
-= Le plugin ralentit-il mon site ? =
+= Does the plugin slow down my site? =
 
-Non. Le connecteur ne fait qu'exposer une API en lecture ; toute l'analyse lourde tourne sur les serveurs de WP Security, pas sur votre hébergement.
+No. The connector only exposes a read-only API; all the heavy analysis runs on the WP Security servers, not on your hosting.
 
-= Ai-je besoin d'un compte WP Security ? =
+= Do I need a WP Security account? =
 
-Oui. Le plugin est un connecteur vers le service WP Security ; il ne fonctionne pas seul. La connexion d'un site et un scan de découverte sont possibles gratuitement.
+Yes. The plugin is a connector to the WP Security service; it does not work on its own. Connecting a site and running a discovery scan are free.
 
-= Le plugin peut-il modifier mes fichiers ? =
+= Can the plugin modify my files? =
 
-Par défaut, non : il est en lecture seule. Les actions de nettoyage (quarantaine, remplacement) sont opt-in, réversibles, et protégées par HMAC + nonce à usage unique, toujours après un backup vérifié.
+No. This connector is strictly **read-only**: it never executes, modifies, deletes or moves your files.
 
-= Mes fichiers sont-ils envoyés à un tiers ? =
+= Are my files sent to a third party? =
 
-Seuls les fichiers nécessaires à l'analyse sont lus à la demande lors d'un scan. Ils ne sont pas stockés : seuls les résultats (métadonnées) sont conservés, en région UE.
+Only the files needed for analysis are read on demand during a scan. They are not stored — only the results (metadata) are kept, hosted in the EU.
 
 == Screenshots ==
 
-1. Réglages du connecteur dans l'administration WordPress (URL du site + clé de connexion).
-2. Tableau de bord WP Security : rapport de scan (fichiers infectés, point d'entrée, score de risque).
+1. The connector settings in the WordPress admin (site URL + connection key).
+2. The WP Security dashboard: scan report (infected files, entry point, risk score).
 
 == Changelog ==
 
 = 0.8.0 =
-* Scan de la base de données (endpoint lecture seule `/db`, pré-filtré en SQL, valeurs sensibles masquées).
-* Protocole HMAC v2 : la query string est désormais signée.
-* Endpoints de nettoyage réversible (quarantaine, remplacement officiel, rollback) avec nonce à usage unique.
+* Read-only connector: info, files, file content and database scan endpoints.
+* HMAC-SHA256 authentication with signed query string.
 
 == Upgrade Notice ==
 
 = 0.8.0 =
-Active le scan de la base de données et renforce l'authentification HMAC (query signée). Réinstallation recommandée.
+Read-only connector with database scanning and HMAC-SHA256 authentication.

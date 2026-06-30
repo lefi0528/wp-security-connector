@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
  * - Tous les chemins sont normalisés et vérifiés contre ABSPATH.
  * - Aucun fichier en dehors de ABSPATH ne peut être lu.
  */
-class WSC_File_Manager
+class GENISECO_File_Manager
 {
     private const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 Mo — au-delà, on retourne juste les métadonnées
     // Dossiers régénérables / non-source : exclus du scan. Le cache contient du HTML

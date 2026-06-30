@@ -6,7 +6,7 @@
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-777bb4)](https://www.php.net/)
 [![Version](https://img.shields.io/badge/version-0.8.0-00b3c4)](https://wordpress.genisoft.fr)
 
-> 🔒 Plugin officiel de **[WP Security](https://wordpress.genisoft.fr)** — la solution SaaS d'**audit, de détection de malwares et de nettoyage automatisé** pour WordPress (alternative à Sucuri / Wordfence / MalCare).
+> 🔒 Plugin officiel de **[WP Security](https://wordpress.genisoft.fr)** — la solution SaaS d'**audit et de détection de malwares** pour WordPress (alternative à Sucuri / Wordfence / MalCare).
 
 ---
 
@@ -25,14 +25,14 @@ Le scan complet (détection de **webshells, backdoors, injections, obfuscation**
 1. **Installez & activez** ce connecteur sur votre WordPress (une clé HMAC unique est générée automatiquement).
 2. **Connectez le site** depuis votre tableau de bord [WP Security](https://wordpress.genisoft.fr) en collant l'URL + la clé.
 3. **Lancez un scan** : le moteur interroge l'API du plugin, lit les fichiers à analyser, et exécute la détection (YARA + checksums officiels + analyse AST) sur ses serveurs isolés.
-4. **Consultez le rapport** : fichiers infectés, point d'entrée probable, score de risque, et étapes de remédiation. Le nettoyage réversible est ensuite déclenchable **sur votre validation**.
+4. **Consultez le rapport** : fichiers infectés, point d'entrée probable, score de risque, et étapes de remédiation à appliquer sur votre site.
 
 ## Pourquoi WP Security ?
 
 - ⚡ **Zéro charge serveur** — l'analyse lourde tourne côté SaaS, pas sur votre hébergement.
 - 🧠 **Triage par IA** — les fichiers ambigus sont arbitrés pour réduire les faux positifs.
 - 🇪🇺 **RGPD & UE** — hébergement Union européenne, fichiers non stockés.
-- 🔁 **Nettoyage réversible** — quarantaine + remplacement par fichiers officiels, jamais de suppression destructive.
+- 👀 **Lecture seule** — le connecteur lit vos fichiers pour analyse, ne les modifie jamais.
 - 🔓 **Connecteur open source** (GPLv2+) — auditez ce que le plugin fait réellement.
 
 ---
@@ -42,18 +42,17 @@ Le scan complet (détection de **webshells, backdoors, injections, obfuscation**
 La sécurité est le cœur du produit, donc le connecteur est volontairement **minimaliste et durci** :
 
 - ✅ **Authentification HMAC-SHA256** sur chaque requête (signature + horodatage, fenêtre anti-rejeu de 5 min). Clé unique par site, générée à l'installation, jamais transmise en clair.
-- ✅ **Lecture seule par défaut** (Phase 1) : le connecteur lit vos fichiers octet par octet pour analyse — **jamais d'`eval`, `exec` ou `include`** sur du contenu externe.
-- ✅ **Actions de nettoyage réversibles** (Phase 2) : quarantaine et remplacement par fichiers officiels re-téléchargés depuis `wordpress.org`, sous **backup vérifié + nonce à usage unique**. Aucune suppression destructive.
+- ✅ **Lecture seule** : le connecteur lit vos fichiers octet par octet pour analyse — **jamais d'`eval`, `exec` ou `include`** sur du contenu externe, et **aucune modification de fichier**.
 - ✅ **Pas de SSH, pas de SFTP, pas d'accès base hors périmètre.**
 
 ## Endpoints exposés
 
-| Endpoint | Méthode | Phase | Rôle |
-|---|---|---|---|
-| `/wsc/v1/info` | GET | 1 | Version WP, plugins, thèmes (pour le diagnostic) |
-| `/wsc/v1/files` | GET | 1 | Listing des fichiers à analyser |
-| `/wsc/v1/file` | GET | 1 | Lecture d'un fichier (analyse statique) |
-| `/wsc/v1/backup` · `/quarantine` · `/replace` · `/rollback` | POST | 2 | Nettoyage réversible (HMAC + nonce) |
+| Endpoint | Méthode | Rôle |
+|---|---|---|
+| `/wsc/v1/info` | GET | Version WP, plugins, thèmes (pour le diagnostic) |
+| `/wsc/v1/files` | GET | Listing des fichiers à analyser |
+| `/wsc/v1/file` | GET | Lecture d'un fichier (analyse statique) |
+| `/wsc/v1/db` | GET | Analyse BDD lecture seule (options/cron/posts suspects) |
 
 Tous les endpoints sont sous le namespace `wsc/v1` et **rejettent toute requête non signée**.
 

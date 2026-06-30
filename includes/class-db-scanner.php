@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
  *  - JAMAIS de user_pass / hash de mot de passe.
  *  - Aucune écriture, aucun eval/exec : on LIT des lignes et on cherche des sous-chaînes.
  */
-class WSC_Db_Scanner
+class GENISECO_Db_Scanner
 {
     /** Max de lignes signalées renvoyées par catégorie (anti-DoS / volume de données). */
     private const MAX_FLAGGED = 200;
