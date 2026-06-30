@@ -25,8 +25,8 @@ class WSC_Admin_Settings
     public function add_settings_page(): void
     {
         add_options_page(
-            'WP Security Connector',
-            'WP Security',
+            'Genisoft Security Connector',
+            'Genisoft Security',
             'manage_options',
             self::MENU_SLUG,
             [$this, 'render_page'],

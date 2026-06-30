@@ -1,4 +1,4 @@
-# WP Security Connector
+# Genisoft Security Connector
 
 **Connecteur sécurisé qui relie votre site WordPress au scanner de malwares [WP Security](https://wordpress.genisoft.fr).**
 
@@ -12,7 +12,7 @@
 
 ## À quoi sert ce plugin ?
 
-`WP Security Connector` est un **connecteur léger et sécurisé**. Il n'analyse rien lui-même : il expose une **API REST authentifiée par HMAC-SHA256** que le moteur de scan de **[wordpress.genisoft.fr](https://wordpress.genisoft.fr)** interroge pour auditer votre site **à distance**, sans SSH ni FTP.
+`Genisoft Security Connector` est un **connecteur léger et sécurisé**. Il n'analyse rien lui-même : il expose une **API REST authentifiée par HMAC-SHA256** que le moteur de scan de **[wordpress.genisoft.fr](https://wordpress.genisoft.fr)** interroge pour auditer votre site **à distance**, sans SSH ni FTP.
 
 Le scan complet (détection de **webshells, backdoors, injections, obfuscation**, vérification d'intégrité du core via checksums officiels `api.wordpress.org`, règles **YARA**) tourne **côté serveur SaaS**, dans un environnement isolé — votre site reste léger.
 
@@ -62,7 +62,7 @@ Tous les endpoints sont sous le namespace `wsc/v1` et **rejettent toute requête
 1. Téléchargez `wp-security-connector.zip`.
 2. Dans votre admin WordPress : **Extensions → Ajouter → Téléverser une extension**.
 3. Activez le plugin. Une clé HMAC unique est générée automatiquement.
-4. Allez dans **Réglages → WP Security Connector**, copiez l'URL + la clé.
+4. Allez dans **Réglages → Genisoft Security**, copiez l'URL + la clé.
 5. Connectez le site depuis votre **[tableau de bord WP Security](https://wordpress.genisoft.fr/sites/new)** et lancez votre premier scan.
 
 **Prérequis :** WordPress 6.0+, PHP 8.0+.
@@ -83,4 +83,4 @@ Le **plugin** (ce dépôt) est distribué sous **GPLv2 ou ultérieure** — voir
 
 ---
 
-*WP Security Connector — le pont sécurisé entre WordPress et [WP Security](https://wordpress.genisoft.fr).*
+*Genisoft Security Connector — le pont sécurisé entre WordPress et [WP Security](https://wordpress.genisoft.fr).*

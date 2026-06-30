@@ -12,7 +12,7 @@ Connecteur sécurisé qui relie votre WordPress au scanner de malwares WP Securi
 
 == Description ==
 
-**WP Security Connector** est le plugin officiel du service **[WP Security](https://wordpress.genisoft.fr)** — une solution d'**audit de sécurité, de détection de malwares et de nettoyage automatisé** pour WordPress.
+**Genisoft Security Connector** est le plugin officiel du service **[WP Security](https://wordpress.genisoft.fr)** (édité par Genisoft) — une solution d'**audit de sécurité, de détection de malwares et de nettoyage automatisé** pour WordPress.
 
 Ce plugin est un **connecteur léger** : il n'analyse rien lui-même. Il expose une **API REST authentifiée par HMAC-SHA256** que le moteur de scan de WP Security interroge pour auditer votre site **à distance**, sans SSH ni FTP. L'analyse lourde (détection de **webshells, backdoors, injections, code obfusqué**, vérification d'intégrité du cœur WordPress via les checksums officiels de `api.wordpress.org`, règles YARA) tourne **côté serveur**, dans un environnement isolé — votre site reste léger et rapide.
 
@@ -44,7 +44,7 @@ Ce plugin est un connecteur : il **nécessite un compte sur le service externe W
 
 1. Téléversez le dossier `wp-security-connector` dans `/wp-content/plugins/`, ou installez le plugin via le menu **Extensions → Ajouter**.
 2. Activez le plugin depuis le menu **Extensions** de WordPress. Une clé HMAC unique est générée automatiquement.
-3. Allez dans **Réglages → WP Security Connector** et copiez l'URL du site ainsi que la clé de connexion.
+3. Allez dans **Réglages → Genisoft Security** et copiez l'URL du site ainsi que la clé de connexion.
 4. Créez un compte sur [wordpress.genisoft.fr](https://wordpress.genisoft.fr/sites/new), connectez votre site et lancez votre premier scan.
 
 == Frequently Asked Questions ==
