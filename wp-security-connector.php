@@ -7,7 +7,10 @@
  *              authentifiée par HMAC-SHA256 utilisée par le moteur de scan SaaS.
  * Version:     0.8.0
  * Author:      WP Security SaaS
- * License:     Proprietary
+ * Author URI:  https://wordpress.genisoft.fr
+ * License:     GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: wp-security-connector
  * Requires at least: 6.0
  * Requires PHP: 8.0
  *

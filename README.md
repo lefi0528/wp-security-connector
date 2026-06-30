@@ -58,7 +58,11 @@ Tous les endpoints sont sous le namespace `wsc/v1` et **rejettent toute requête
 - 🛡️ **Ce que détecte le scanner :** webshells, backdoors, injecteurs, code obfusqué, fichiers core modifiés, plugins/thèmes vulnérables (CVE).
 - 🇪🇺 **Hébergement EU / RGPD :** vos fichiers ne sont **pas stockés** — seuls les résultats d'analyse (métadonnées) sont conservés.
 
-> Ce dépôt contient **uniquement le connecteur** (open pour la transparence et l'audit communautaire). Le moteur de détection reste propriétaire.
+> Ce dépôt contient **uniquement le connecteur** (open pour la transparence et l'audit communautaire). Le moteur de détection (scanner, règles YARA) reste propriétaire.
+
+## Licence
+
+Le **plugin** (ce dépôt) est distribué sous **GPLv2 ou ultérieure** — voir [`LICENSE`](LICENSE), comme requis pour le répertoire WordPress.org. Le **service WP Security** (backend de détection) reste un service propriétaire distinct.
 
 ---
 
