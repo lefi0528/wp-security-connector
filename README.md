@@ -20,6 +20,23 @@ Le scan complet (détection de **webshells, backdoors, injections, obfuscation**
 
 ---
 
+## Comment ça marche
+
+1. **Installez & activez** ce connecteur sur votre WordPress (une clé HMAC unique est générée automatiquement).
+2. **Connectez le site** depuis votre tableau de bord [WP Security](https://wordpress.genisoft.fr) en collant l'URL + la clé.
+3. **Lancez un scan** : le moteur interroge l'API du plugin, lit les fichiers à analyser, et exécute la détection (YARA + checksums officiels + analyse AST) sur ses serveurs isolés.
+4. **Consultez le rapport** : fichiers infectés, point d'entrée probable, score de risque, et étapes de remédiation. Le nettoyage réversible est ensuite déclenchable **sur votre validation**.
+
+## Pourquoi WP Security ?
+
+- ⚡ **Zéro charge serveur** — l'analyse lourde tourne côté SaaS, pas sur votre hébergement.
+- 🧠 **Triage par IA** — les fichiers ambigus sont arbitrés pour réduire les faux positifs.
+- 🇪🇺 **RGPD & UE** — hébergement Union européenne, fichiers non stockés.
+- 🔁 **Nettoyage réversible** — quarantaine + remplacement par fichiers officiels, jamais de suppression destructive.
+- 🔓 **Connecteur open source** (GPLv2+) — auditez ce que le plugin fait réellement.
+
+---
+
 ## Pourquoi c'est sûr
 
 La sécurité est le cœur du produit, donc le connecteur est volontairement **minimaliste et durci** :
