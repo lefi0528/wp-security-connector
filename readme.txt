@@ -1,5 +1,5 @@
 === WP Security Connector ===
-Contributors: genisoft
+Contributors: genisoftweb
 Tags: malware, security, scanner, security-audit, hacked
 Requires at least: 6.0
 Tested up to: 6.8
